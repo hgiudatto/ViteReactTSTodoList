@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import List from "./components/List";
+
+interface Sub {
+  nick: string;
+  avatar: string;
+  subMonths: number;
+  description?: string;
+}
+
+interface AppState {
+  subs: Array<Sub>;
+}
+
+const INITIAL_STATE = [
+  {
+    nick: "dapelu",
+    subMonths: 3,
+    avatar: "https://i.pravatar.cc/150?u=dapelu",
+    description: "Dapelu hace de moderador a veces.",
+  },
+  {
+    nick: "sergio_serrano",
+    subMonths: 7,
+    avatar: "https://i.pravatar.cc/150?u=sergio_serrano",
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [subs, setSubs] = useState<AppState["subs"]>([]);
+  useEffect(() => {
+    setSubs(INITIAL_STATE);
+  }, []);
 
   return (
     <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>midu subs</h1>
+      <List subs={subs} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -30,6 +30,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  place-content: center;
 }
 
 h1 {
@@ -67,4 +68,29 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+code {
+  font-family: Cochin, "Courier New", Courier, monospace;
+}
+
+ul,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  border-radius: 200px;
+  height: auto;
+  width: 50px;
+}
+
+ul li {
+  border-radius: 4px;
+  border: 1px solid #eee;
+  list-style: none;
+  margin-bottom: 16px;
+  max-width: 320px;
+  padding: 8px 32px;
 }
