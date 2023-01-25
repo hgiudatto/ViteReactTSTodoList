@@ -5,6 +5,7 @@ import { Sub } from "./types.d";
 import "./App.css";
 import List from "./components/List";
 import Form from "./components/Form";
+import Header from "./components/Header";
 
 interface AppState {
   subs: Array<Sub>;
@@ -36,9 +37,10 @@ function App() {
 
   return (
     <div className="App">
-      <h1>midu subs</h1>
+      {/* <h1>midu subs</h1>
       <List subs={subs} />
-      <Form onNewSub={setSubs} />
+      <Form onNewSub={setSubs} /> */}
+      <Header />
     </div>
   );
 }

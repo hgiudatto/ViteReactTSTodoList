@@ -532,6 +532,11 @@
     "path-parse" "^1.0.7"
     "supports-preserve-symlinks-flag" "^1.0.0"
 
+"rickmortyapi@^2.3.0":
+  "integrity" "sha512-YSAwmxS1OFRO1gYzxyZpijGXXJ5z1yDGT8U5kYqP5Qc4T3uWWQyQk8L7ty6R0HigIrGIXzht6xBpmshGhqn5sg=="
+  "resolved" "https://registry.npmjs.org/rickmortyapi/-/rickmortyapi-2.3.0.tgz"
+  "version" "2.3.0"
+
 "rollup@^3.7.0":
   "integrity" "sha512-JmRYz44NjC1MjVF2VKxc0M1a97vn+cDxeqWmnwyAF4FvpjK8YFdHpaqvQB+3IxCvX05vJxKZkoMDU8TShhmJVA=="
   "resolved" "https://registry.npmjs.org/rollup/-/rollup-3.10.0.tgz"
