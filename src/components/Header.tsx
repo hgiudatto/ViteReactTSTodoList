@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { getCharacters } from 'rickmortyapi'
+import { RickMorty } from '../types.d'
+
+
+
 
 interface HeaderProps {
     buttonText?: string
 }
 
-interface RickMorty {
-    name: string
-    status: string
-    species: string
-    gender: string
-    image: string
-    url: string
-    created: string
+interface AppState {
+    rickMorty: Array<RickMorty>
 }
 
 interface CharacterFilter {
