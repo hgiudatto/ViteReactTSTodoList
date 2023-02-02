@@ -6,6 +6,7 @@ import "./App.css";
 import List from "./components/List";
 import Form from "./components/Form";
 import Header from "./components/Header";
+import RickMortysGrid from "./components/RickMortysGrid";
 
 interface AppState {
   subs: Array<Sub>;
@@ -40,7 +41,12 @@ function App() {
       {/* <h1>midu subs</h1>
       <List subs={subs} />
       <Form onNewSub={setSubs} /> */}
-      <Header />
+      <header>
+        <Header title="Rick and Mortys" />
+      </header>
+      <main>
+        <RickMortysGrid />
+      </main>
     </div>
   );
 }

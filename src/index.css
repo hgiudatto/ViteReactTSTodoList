@@ -31,6 +31,8 @@ body {
   min-width: 320px;
   min-height: 100vh;
   place-content: center;
+  background-color: aquamarine;
+  color: yellow;
 }
 
 h1 {

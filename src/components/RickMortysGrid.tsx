@@ -1,22 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { getCharacters, ApiResponse, Info, Character } from "rickmortyapi";
+import {
+  getCharacters,
+  ApiResponse,
+  Info,
+  Character,
+  CharacterFilter,
+} from "rickmortyapi";
 import { RickMorty } from "../types/types.d";
 
-interface HeaderProps {
-  buttonText?: string;
-  title?: string;
-}
+type Props = {};
 
-interface AppState {
-  rickMorty: Array<RickMorty>;
-}
-
-interface CharacterFilter {
-  page: number;
-}
-
-export default function Header({ buttonText, title }: HeaderProps) {
-  const [count, setCount] = useState(0);
+const RickMortysGrid = (props: Props) => {
   const [rickAndMortys, setRickAndMortys] = useState<ApiResponse<
     Info<Character[]>
   > | null>(null);
@@ -24,14 +18,10 @@ export default function Header({ buttonText, title }: HeaderProps) {
   const fetchRickMortyChars = async (
     pageNumber: CharacterFilter
   ): Promise<ApiResponse<Info<Character[]>>> => {
+    // TODO: 20230203 - Obtener los characters desde RickMortyRetriever.fetchRickMortyChars
     const moreCharacters = await getCharacters(pageNumber);
     setRickAndMortys(moreCharacters);
     return moreCharacters;
-  };
-
-  const increment = () => {
-    setCount(count + 1);
-    console.log(`Count: ${count}`);
   };
 
   useEffect(() => {
@@ -46,9 +36,14 @@ export default function Header({ buttonText, title }: HeaderProps) {
 
   return (
     <div>
-      <h1>{title || "Some text"}</h1>
-      <button onClick={increment}>{buttonText || "Click the button"}</button>
-      <p>{count}</p>
+      <ul>
+        {rickAndMortys &&
+          rickAndMortys.data.results?.map((rm) => {
+            return <li>{rm.name}</li>;
+          })}
+      </ul>
     </div>
   );
-}
+};
+
+export default RickMortysGrid;
