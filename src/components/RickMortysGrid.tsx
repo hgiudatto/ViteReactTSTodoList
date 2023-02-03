@@ -39,7 +39,12 @@ const RickMortysGrid = (props: Props) => {
       <ul>
         {rickAndMortys &&
           rickAndMortys.data.results?.map((rm) => {
-            return <li>{rm.name}</li>;
+            return (
+              <div key={rm.id} className="col-md-3 text-center p-5">
+                <img className="w-100" src={rm.image} alt="" />
+                <p>{rm.name}</p>
+              </div>
+            );
           })}
       </ul>
     </div>
