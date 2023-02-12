@@ -22,3 +22,10 @@ export interface RickMorty {
   url: string;
   created: string;
 }
+
+declare module "testRestApiNodeClientResponse" {
+  interface TestRestApiNodeClientResponse {
+    msg: string;
+  }
+  export = TestRestApiNodeClientResponse;
+}

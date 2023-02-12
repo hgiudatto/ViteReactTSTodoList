@@ -7,6 +7,7 @@ import List from "./components/List";
 import Form from "./components/Form";
 import Header from "./components/Header";
 import RickMortysGrid from "./components/RickMortysGrid";
+import TestRestApiNodeClient from "./components/TestRestApiNodeClient";
 
 interface AppState {
   subs: Array<Sub>;
@@ -46,6 +47,7 @@ function App() {
       </header>
       <main>
         <RickMortysGrid />
+        <TestRestApiNodeClient />
       </main>
     </div>
   );
