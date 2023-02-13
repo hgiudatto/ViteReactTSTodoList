@@ -1,14 +1,15 @@
 import TestRestApiNodeClientResponse from "../types/types";
 
-const getHomeFetch = (): Promise<any> => {
-  return new Promise((resolve, reject) => {
-    fetch("http://localhost:3001/home")
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => {
-        console.log(`Error fetching http://localhost:3001/home`, err.message);
-      });
-  });
+const getHomeFetch = (): any => {
+  return fetch("http://localhost:3001/home")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((err) => {
+      console.log(`Error fetching http://localhost:3001/home`, err.message);
+    });
 };
 
 /* const getHome = async (): Promise<TestRestApiNodeClientResponse> => {

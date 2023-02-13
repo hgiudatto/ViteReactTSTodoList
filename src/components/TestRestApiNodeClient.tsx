@@ -7,17 +7,20 @@ type Props = {};
 const TestRestApiNodeClient = (props: Props) => {
   const [homeMessage, setHomeMessage] = useState<any>();
 
-  const fetchHome = async () => {
-    setHomeMessage(await getHomeFetch());
+  const fetchHome = () => {
+    getHomeFetch().then((response: { data: any }) => {
+      setHomeMessage(response.data);
+    });
   };
 
   useEffect(() => {
     fetchHome();
+    console.log(`homeMessage:`, { homeMessage });
   }, []);
 
   return (
-    <div className="col-md-3 text-center p-5">
-      <p>{homeMessage?.msg}</p>
+    <div>
+      <h3>{homeMessage}</h3>
     </div>
   );
 };
