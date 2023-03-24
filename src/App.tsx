@@ -29,6 +29,7 @@ const INITIAL_STATE = [
 
 function App() {
   const [subs, setSubs] = useState<AppState["subs"]>([]);
+
   useEffect(() => {
     setSubs(INITIAL_STATE);
   }, []);

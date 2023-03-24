@@ -29,3 +29,10 @@ declare module "testRestApiNodeClientResponse" {
   }
   export = TestRestApiNodeClientResponse;
 }
+
+export enum DBConnectionStates {
+  disconnected = 0,
+  connected = 1,
+  connecting = 2,
+  disconnecting = 3,
+}

@@ -11,6 +11,7 @@ import { RickMorty } from "../types/types.d";
 type Props = {};
 
 const RickMortysGrid = (props: Props) => {
+  const [showPage, setShowPage] = useState(0);
   const [rickAndMortys, setRickAndMortys] = useState<ApiResponse<
     Info<Character[]>
   > | null>(null);
@@ -24,18 +25,28 @@ const RickMortysGrid = (props: Props) => {
     return moreCharacters;
   };
 
+  const incrementPage = () => {
+    setShowPage((showPage) => showPage + 1);
+  };
+
   useEffect(() => {
-    let pageNum: CharacterFilter = { page: 1 };
+    console.log(`showPage: ${showPage}`);
+    let pageNum: CharacterFilter = { page: showPage };
+    console.log(`Rendering characters from page: `, pageNum);
     const rickMortys = fetchRickMortyChars(pageNum);
     rickMortys.then((res) =>
       res.data.results?.map((rm) => {
         console.log([{ rm }]);
       })
     );
-  }, []);
+  }, [showPage]);
 
   return (
     <div>
+      <div>
+        <button onClick={incrementPage}>Show page</button>
+        <p>{showPage}</p>
+      </div>
       <ul>
         {rickAndMortys &&
           rickAndMortys.data.results?.map((rm) => {
