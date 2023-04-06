@@ -4,3 +4,10 @@ export interface Sub {
   subMonths: number;
   description?: string;
 }
+
+export interface Direction {
+  Up: string;
+  Down: string;
+  Left: string;
+  Right: string;
+}

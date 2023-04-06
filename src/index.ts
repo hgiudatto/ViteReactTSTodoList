@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
-import DBConnectionStates from "./types.d";
 import router from "./router/index.js";
+import { Direction } from "./types.d";
 
 dotenv.config();
 
@@ -33,6 +33,14 @@ mongoose.Promise = Promise;
 mongoose.connect(mongodb_url);
 
 let dbConnState: number = mongoose.connection.readyState;
+let direction: Direction;
+
+direction = {
+  Down: "down",
+  Up: "up",
+  Left: "left",
+  Right: "right",
+};
 
 switch (dbConnState) {
   case 0:
@@ -43,6 +51,8 @@ switch (dbConnState) {
     break;
   case 2:
     console.log(`DB Connection state: CONNECTING`);
+    console.log(`Moving to ${direction.Right}`);
+
     break;
   case 3:
     console.log(`DB Connection state: DISCONNECTING`);

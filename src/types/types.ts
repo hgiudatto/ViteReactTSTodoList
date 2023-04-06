@@ -30,9 +30,12 @@ declare module "testRestApiNodeClientResponse" {
   export = TestRestApiNodeClientResponse;
 }
 
-export enum DBConnectionStates {
-  disconnected = 0,
-  connected = 1,
-  connecting = 2,
-  disconnecting = 3,
+declare module "direction" {
+  enum Direction {
+    Up = "UP",
+    Down = "DOWN",
+    Left = "LEFT",
+    Right = "RIGHT",
+  }
+  export default Direction;
 }

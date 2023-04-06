@@ -6,7 +6,7 @@ import {
   CharacterFilter,
 } from "rickmortyapi";
 
-import { RickMorty } from "../types/types.d";
+import { RickMorty } from "../types/types";
 
 const fetchRickMortyChars = async (
   pageNumber: CharacterFilter
