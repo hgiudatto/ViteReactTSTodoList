@@ -31,7 +31,7 @@ export default function Header({ buttonText, title }: HeaderProps) {
 
   const increment = () => {
     setCount(count + 1);
-    console.log(`Count: ${count}`);
+    console.table(`Count: ${count}`);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function Header({ buttonText, title }: HeaderProps) {
     const rickMortys = fetchRickMortyChars(pageNum);
     rickMortys.then((res) =>
       res.data.results?.map((rm) => {
-        console.log([{ rm }]);
+        console.table([{ rm }]);
       })
     );
   }, []);

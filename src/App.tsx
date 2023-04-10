@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Sub } from "./types.d";
 
@@ -8,6 +8,7 @@ import Form from "./components/Form";
 import Header from "./components/Header";
 import RickMortysGrid from "./components/RickMortysGrid";
 import TestRestApiNodeClient from "./components/TestRestApiNodeClient";
+import { RickMortysSearch } from "./components/RickMortysSearch";
 
 interface AppState {
   subs: Array<Sub>;
@@ -39,7 +40,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="text-3xl font-bold text-blue-500 underline text-center">
       {/* <h1>midu subs</h1>
       <List subs={subs} />
       <Form onNewSub={setSubs} /> */}
@@ -48,7 +49,8 @@ function App() {
       </header>
       <main>
         <RickMortysGrid />
-        <TestRestApiNodeClient />
+        {/* <TestRestApiNodeClient /> */}
+        <RickMortysSearch />
       </main>
     </div>
   );

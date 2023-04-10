@@ -5,16 +5,19 @@ import {
   Info,
   Character,
   CharacterFilter,
+  getCharacter,
 } from "rickmortyapi";
-import { RickMorty } from "../types/types.d";
 
 type Props = {};
 
 const RickMortysGrid = (props: Props) => {
   const [showPage, setShowPage] = useState(0);
+  const [value, setValue] = useState(0);
   const [rickAndMortys, setRickAndMortys] = useState<ApiResponse<
     Info<Character[]>
   > | null>(null);
+  const [rickMortyChar, setRickMortyChar] =
+    useState<ApiResponse<Character>>();
 
   const fetchRickMortyChars = async (
     pageNumber: CharacterFilter
@@ -23,6 +26,11 @@ const RickMortysGrid = (props: Props) => {
     const moreCharacters = await getCharacters(pageNumber);
     setRickAndMortys(moreCharacters);
     return moreCharacters;
+  };
+
+  const handleSearchInputChange = (e) => {
+    const value = e.target.value;
+    setValue(value);
   };
 
   const incrementPage = () => {
