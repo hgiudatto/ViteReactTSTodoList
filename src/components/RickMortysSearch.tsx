@@ -10,8 +10,10 @@ import {
 } from "rickmortyapi";
 import React from "react";
 import SearchBarInput from "../shared/searchBar";
+import RickMortyCardItem from "./RickMortyCardItem";
 
 const RickMorty = ({ rickMorty }) => {
+  // TODO: example 4 -> https://larainfo.com/blogs/react-tailwind-css-cards-example
   return (
     <div
       key={rickMorty.id}
@@ -155,8 +157,10 @@ export function RickMortysSearch() {
         />
       </form>
       <h3 className="font-bold text-3xl">Found Users</h3>
+      <br />
       <div className="flex flex-wrap items-center justify-center w-full">
-        {rickMorty && <RickMorty rickMorty={rickMorty} />}
+        {/* {rickMorty && <RickMorty rickMorty={rickMorty} />} */}
+        <RickMortyCardItem rickMorty={rickMorty} />
       </div>
     </div>
   );

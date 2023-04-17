@@ -29,6 +29,7 @@ const INITIAL_STATE = [
 ];
 
 function App() {
+  // TODO: 20230416 -> Build a Login System in NodeJS with Passport.js Authentication -> https://youtu.be/W5Tb1MIeg-I
   const [subs, setSubs] = useState<AppState["subs"]>([]);
 
   useEffect(() => {
