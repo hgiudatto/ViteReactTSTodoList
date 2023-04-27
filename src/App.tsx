@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Sub } from "./types.d";
-
 import "./App.css";
 import List from "./components/List";
 import Form from "./components/Form";
@@ -41,19 +41,30 @@ function App() {
   };
 
   return (
-    <div className="text-3xl font-bold text-blue-500 underline text-center">
-      {/* <h1>midu subs</h1>
-      <List subs={subs} />
-      <Form onNewSub={setSubs} /> */}
-      <header>
-        <Header title="Rick and Mortys" />
-      </header>
-      <main>
-        <RickMortysGrid />
-        {/* <TestRestApiNodeClient /> */}
-        <RickMortysSearch />
-      </main>
-    </div>
+    <BrowserRouter>
+      <nav class="flex justify-center space-x-4">
+        <Link
+          class="text-blue-600 visited:text-purple-600 ..."
+          to="/grid"
+        >
+          Rick and Mortys Fantastic Grid
+        </Link>
+        <Link
+          class="text-blue-600 visited:text-purple-600 ..."
+          to="/search"
+        >
+          Awesome Search
+        </Link>
+      </nav>
+      <Routes>
+        <Route
+          path="/"
+          element={<Header title="Rick and Mortys" />}
+        />
+        <Route path="/grid" element={<RickMortysGrid />} />
+        <Route path="/search" element={<RickMortysSearch />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

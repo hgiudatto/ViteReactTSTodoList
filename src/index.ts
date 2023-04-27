@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import router from "./router/index.js";
-import { Direction, DBConnStatus } from "./types.d";
+import { statusRetriever } from "./aux/DBConnStatusMgr.js";
 
 dotenv.config();
 
@@ -30,50 +30,11 @@ server.listen(8080, () => {
 
 const mongodb_url: string = process.env.MONGO_URL as string;
 mongoose.Promise = Promise;
-// mongoose.connect(mongodb_url);
+mongoose.connect(mongodb_url);
 
 let dbConnState: number = mongoose.connection.readyState;
-let direction: Direction;
-let dbConnStatus: DBConnStatus;
 
-direction = {
-  Down: "down",
-  Up: "up",
-  Left: "left",
-  Right: "right",
-};
-
-dbConnStatus = {
-  disconnected: "DISCONNECTED",
-  connected: "CONNECTED",
-  connecting: "CONNECTING",
-  disconnecting: "DISCONNECTING",
-  uninitialized: "UNINITIALIZED",
-  unknown: "UNKNOWN",
-};
-
-switch (dbConnState) {
-  case 0:
-    console.log(`DB Connection state: ${dbConnStatus.disconnected}`);
-    break;
-  case 1:
-    console.log(`DB Connection state: ${dbConnStatus.connected}`);
-    break;
-  case 2:
-    console.log(`DB Connection state: ${dbConnStatus.connecting}`);
-    console.log(`Moving to ${direction.Right}`);
-
-    break;
-  case 3:
-    console.log(`DB Connection state: ${dbConnStatus.disconnecting}`);
-    break;
-  case 99:
-    console.log(`DB Connection state: ${dbConnStatus.uninitialized}`);
-    break;
-  default:
-    console.log(`DB Connection state: ${dbConnStatus.unknown}`);
-    break;
-}
+console.log(`DB Connection status: `, statusRetriever(dbConnState));
 
 mongoose.connection.on("error", (error: Error) => {
   console.log(error);

@@ -26,6 +26,7 @@
     "react-dom": "^18.2.0",
     "react-native": "^0.71.2",
     "react-rest-client": "^1.0.1",
+    "react-router-dom": "^6.10.0",
     "rickmortyapi": "^2.3.0",
     "styled-components": "^5.3.9",
     "tailwindcss": "^3.3.1",
