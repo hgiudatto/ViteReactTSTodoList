@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "engines": {
-    "node": ">=14 <18"
+    "node": ">= 18"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.28.0",
