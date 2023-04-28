@@ -19,25 +19,25 @@ const RickMorty = ({ rickMorty }) => {
       key={rickMorty.id}
       className="flex flex-col items-center m-4"
     >
-      <img src={rickMorty.image} className="h-24" />
+      <img src={rickMorty?.image} className="h-24" />
       <div className="text-xl font-semibold mt-2">
         {rickMorty.name}
       </div>{" "}
       -
       <div className="text-xl font-semibold mt-2">
-        Gender: {rickMorty.gender}
+        Gender: {rickMorty?.gender}
       </div>{" "}
       -
       <span className="text-lg text-gray-400 font-bold">
-        Species: {rickMorty.species}
+        Species: {rickMorty?.species}
       </span>{" "}
       -
       <span className="text-lg text-gray-400 font-bold">
-        Status: {rickMorty.status}
+        Status: {rickMorty?.status}
       </span>{" "}
       -
       <span className="text-lg text-gray-400 font-bold">
-        Location: {rickMorty.location.name}
+        Location: {rickMorty?.location?.name}
       </span>
     </div>
   );
@@ -104,7 +104,7 @@ export default function useRickMortysSearch(value: string, delay) {
 export function RickMortysSearch() {
   // TODO react-stop-doing-this/src/component/debounce.jsx
   const [value, setValue] = useState("");
-  const [rickMorty, setRickMorty] = useState<Character>();
+  const [rickMorty, setRickMorty] = useState<Character | null>();
 
   const rickMortySearchValue = useRickMortysSearch(value, 300);
   console.log(`useRickMortysSearch: ${rickMortySearchValue}`);
@@ -117,14 +117,18 @@ export function RickMortysSearch() {
   const searchCharacters = async (value: string) => {
     console.log(`Name that we're looking for: ${value}`);
 
-    const characterFound = await searchRickMortyCharacter({
-      name: value,
-    });
-    if (characterFound) {
-      console.log(
-        `Found character id: ${characterFound.id}, name: ${characterFound.name}`
-      );
-      setRickMorty(characterFound);
+    if (value) {
+      const characterFound = await searchRickMortyCharacter({
+        name: value,
+      });
+      if (characterFound) {
+        console.log(
+          `Found character id: ${characterFound.id}, name: ${characterFound.name}`
+        );
+        setRickMorty(characterFound);
+      } else {
+        setRickMorty(null);
+      }
     }
   };
 
@@ -161,26 +165,27 @@ export function RickMortysSearch() {
       <h3 className="font-bold text-3xl">Found Users</h3>
       <br />
       <div className="flex flex-wrap items-center justify-center w-full">
-        {rickMorty && (
-          <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-            {/* <div className="shrink-0">
+        {rickMorty?.image && (
+          <>
+            <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+              {/* <div className="shrink-0">
               <img
                 className="h-12 w-12"
                 src="/img/logo.svg"
                 alt="ChitChat Logo"
               />
             </div> */}
-            <div>
-              <div className="text-xl font-medium text-blue-600">
-                ChitChat
+              <div>
+                <div className="text-xl font-medium text-blue-600">
+                  ChitChat
+                </div>
+                <p className="text-slate-500">Character found!!</p>
               </div>
-              <p className="text-slate-500">Character found!!</p>
             </div>
-          </div>
+            <RickMorty rickMorty={rickMorty} />
+          </>
         )}
-        {rickMorty && <RickMorty rickMorty={rickMorty} />}
-        {/*         <RickMortyCardItem rickMorty={rickMorty} />
-         */}{" "}
+        {/* {rickMorty && <RickMorty rickMorty={rickMorty} />} */}
       </div>
     </div>
   );
