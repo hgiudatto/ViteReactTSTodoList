@@ -132,12 +132,14 @@ export function RickMortysSearch() {
     target: { value: string };
   }) => {
     const value = e.target.value;
+    console.log(`Character searching for: ${value}`);
+
     setValue(value);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     searchCharacters("");
-  }, []);
+  }, []); */
 
   /* useEffect(() => {
     fetchSomeRickMortyChar(value);
@@ -159,8 +161,26 @@ export function RickMortysSearch() {
       <h3 className="font-bold text-3xl">Found Users</h3>
       <br />
       <div className="flex flex-wrap items-center justify-center w-full">
-        {/* {rickMorty && <RickMorty rickMorty={rickMorty} />} */}
-        <RickMortyCardItem rickMorty={rickMorty} />
+        {rickMorty && (
+          <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
+            {/* <div className="shrink-0">
+              <img
+                className="h-12 w-12"
+                src="/img/logo.svg"
+                alt="ChitChat Logo"
+              />
+            </div> */}
+            <div>
+              <div className="text-xl font-medium text-blue-600">
+                ChitChat
+              </div>
+              <p className="text-slate-500">Character found!!</p>
+            </div>
+          </div>
+        )}
+        {rickMorty && <RickMorty rickMorty={rickMorty} />}
+        {/*         <RickMortyCardItem rickMorty={rickMorty} />
+         */}{" "}
       </div>
     </div>
   );
