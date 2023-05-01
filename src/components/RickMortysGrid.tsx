@@ -7,6 +7,7 @@ import {
   CharacterFilter,
   getCharacter,
 } from "rickmortyapi";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -60,8 +61,10 @@ const RickMortysGrid = (props: Props) => {
           rickAndMortys.data.results?.map((rm) => {
             return (
               <div key={rm.id} className="col-md-3 text-center p-5">
-                <img className="w-100" src={rm.image} alt="" />
-                <p>{rm.name}</p>
+                <Link to={`/grid/${rm.id}`}>
+                  <img className="w-100" src={rm.image} alt="" />
+                  <p>{rm.name}</p>
+                </Link>
               </div>
             );
           })}

@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import RickMortysGrid from "./components/RickMortysGrid";
 import TestRestApiNodeClient from "./components/TestRestApiNodeClient";
 import { RickMortysSearch } from "./components/RickMortysSearch";
+import RickMortyGridDetail from "./components/RickMortyGridDetail";
 
 interface AppState {
   subs: Array<Sub>;
@@ -57,11 +58,9 @@ function App() {
         </Link>
       </nav>
       <Routes>
-        <Route
-          path="/"
-          element={<Header title="Rick and Mortys" />}
-        />
+        <Route path="/" element={<Header title="Playground" />} />
         <Route path="/grid" element={<RickMortysGrid />} />
+        <Route path="/grid/:id" element={<RickMortyGridDetail />} />
         <Route path="/search" element={<RickMortysSearch />} />
       </Routes>
     </BrowserRouter>
