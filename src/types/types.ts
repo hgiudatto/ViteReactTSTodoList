@@ -23,6 +23,11 @@ export interface RickMorty {
   created: string;
 }
 
+export interface Task {
+  taskName: string;
+  deadline: number;
+}
+
 declare module "testRestApiNodeClientResponse" {
   interface TestRestApiNodeClientResponse {
     msg: string;

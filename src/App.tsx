@@ -10,6 +10,7 @@ import RickMortysGrid from "./components/RickMortysGrid";
 import TestRestApiNodeClient from "./components/TestRestApiNodeClient";
 import { RickMortysSearch } from "./components/RickMortysSearch";
 import RickMortyGridDetail from "./components/RickMortyGridDetail";
+import Todo from "./components/Todo";
 
 interface AppState {
   subs: Array<Sub>;
@@ -62,6 +63,7 @@ function App() {
         <Route path="/grid" element={<RickMortysGrid />} />
         <Route path="/grid/:id" element={<RickMortyGridDetail />} />
         <Route path="/search" element={<RickMortysSearch />} />
+        <Route path="/todo" element={<Todo />} />
       </Routes>
     </BrowserRouter>
   );
