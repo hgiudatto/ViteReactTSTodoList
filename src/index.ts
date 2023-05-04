@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 import router from "./router/index.js";
-import { statusRetriever } from "./aux/DBConnStatusMgr.js";
+import { statusRetriever } from "./mgr/DBConnStatusMgr.js";
 
 dotenv.config();
 
