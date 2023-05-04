@@ -20,11 +20,19 @@ const Todo = (props: Props) => {
   };
 
   const addTask = (): void => {
-    const newTask = { taskName: task, deadLine: deadLine };
+    const newTask = { taskName: task, deadline: deadLine };
     setTodoList([...todoList, newTask]);
     console.log(todoList);
     setTask("");
     setDeadLine(0);
+  };
+
+  const completeTask = (taskName2Del: string): void => {
+    setTodoList(
+      todoList.filter((task) => {
+        return task.taskName !== taskName2Del;
+      })
+    );
   };
 
   return (
@@ -56,7 +64,13 @@ const Todo = (props: Props) => {
       </div>
       <div className="md:container md:mx-auto bg-sky-700">
         {todoList.map((task: Task, key: number) => {
-          return <TodoTask key={key} task={task} />;
+          return (
+            <TodoTask
+              key={key}
+              task={task}
+              completeTask={completeTask}
+            />
+          );
         })}
       </div>
     </>
