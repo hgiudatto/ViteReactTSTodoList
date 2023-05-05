@@ -4,16 +4,84 @@ import { statusRetriever } from "./mgr/DBConnStatusMgr.js";
 
 dotenv.config();
 
-import express from "express";
+import express, { Router } from "express";
 import http from "http";
 import bodyParser from "body-parser";
 import compression from "compression";
 import cors from "cors";
 import mongoose from "mongoose";
+import users from "./router/users.js";
+import { parsePath } from "react-router-dom";
+
+const demo = {
+  users: [
+    {
+      username: "user0",
+      password: "pass0",
+      actions: [
+        { name: "Like", image: "/assets/like.png" },
+        { name: "Comment", image: "/assets/comment.png" },
+      ],
+    },
+    {
+      username: "user1",
+      password: "pass1",
+      actions: [
+        { name: "Share", image: "/assets/share.png" },
+        { name: "Suscribe", image: "/assets/suscribe.png" },
+      ],
+    },
+  ],
+};
 
 const app = express();
+app.use(express.static("public"));
+const api = Router();
+api.use(express.json());
+api.use((req, res, next) => {
+  if (!req.body)
+    return res.status(400).send({ error: "Invalid request" });
+  else return next();
+});
+api.post("/login", (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(400).send({ error: "Invalid request" });
+  }
+  const user = demo.users.find(
+    (u) =>
+      u.username === req.body.username &&
+      u.password === req.body.password
+  );
+  if (!user) {
+    return res
+      .status(401)
+      .send({ error: "Invalid username or password" });
+  }
+  return res.send({ token: { username: user.username } });
+});
+api.post("/actions", (req, res) => {
+  const sendInvalid = () => {
+    res.status(401).send({ error: "Invalid token" });
+  };
+  if (!req.body.token) {
+    return sendInvalid();
+  }
+  const username = req.body.token.username;
 
-app.use(
+  const user = demo.users.find((u) => u.username === username);
+  if (!user) {
+    return sendInvalid();
+  }
+
+  return res.send({ actions: user.actions });
+});
+app.use("/api", api);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server started on port: ${process.env.PORT}`);
+});
+
+/* app.use(
   cors({
     credentials: true,
   })
@@ -30,7 +98,7 @@ server.listen(8080, () => {
 
 const mongodb_url: string = process.env.MONGO_URL as string;
 mongoose.Promise = Promise;
-mongoose.connect(mongodb_url);
+// mongoose.connect(mongodb_url);
 
 let dbConnState: number = mongoose.connection.readyState;
 
@@ -40,4 +108,4 @@ mongoose.connection.on("error", (error: Error) => {
   console.log(error);
 });
 
-app.use("/", router());
+app.use("/", router()); */

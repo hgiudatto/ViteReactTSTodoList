@@ -32,7 +32,59 @@ const INITIAL_STATE = [
 
 function App() {
   // TODO: 20230416 -> Build a Login System in NodeJS with Passport.js Authentication -> https://youtu.be/W5Tb1MIeg-I
+
+  // const loginEndpoint = "http://localhost:3000/api/Login";
+  // const actionsEndpoint = "http://localhost:3000/api/actions";
+
   const [subs, setSubs] = useState<AppState["subs"]>([]);
+  const [token, setToken] = useState<any>(null);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [actions, setActions] = useState<
+    {
+      name: string;
+      image: string;
+    }[]
+  >([]);
+
+  const [success, setSuccess] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const cleanMessages = () => {
+    setSuccess("");
+    setError("");
+  };
+
+  const onLogin = async () => {
+    cleanMessages();
+    setActions([]);
+    const res = await fetch(process.env.LOGIN_ENDPOINT as string, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    const body = await res.json();
+    if (body.error) {
+      return setError(body.error);
+    }
+    const user = body.token.username;
+    setSuccess(`Logged is ${user}`);
+    setToken(body.token);
+  };
+
+  const onLoadActions = async () => {
+    cleanMessages();
+    const res = await fetch(process.env.ACTIONS_ENDPOINT as string, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+    const body = await res.json();
+    if (body.error) {
+      return setError(body.error);
+    }
+    setSuccess("Actions loaded");
+    setActions(body.actions);
+  };
 
   useEffect(() => {
     setSubs(INITIAL_STATE);
