@@ -11,6 +11,7 @@ import TestRestApiNodeClient from "./components/TestRestApiNodeClient";
 import { RickMortysSearch } from "./components/RickMortysSearch";
 import RickMortyGridDetail from "./components/RickMortyGridDetail";
 import Todo from "./components/Todo";
+import Signup from "./components/Signup";
 
 interface AppState {
   subs: Array<Sub>;
@@ -95,29 +96,34 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
-      <nav class="flex justify-center space-x-4">
-        <Link
-          class="text-blue-600 visited:text-purple-600 ..."
-          to="/grid"
-        >
-          Rick and Mortys Fantastic Grid
-        </Link>
-        <Link
-          class="text-blue-600 visited:text-purple-600 ..."
-          to="/search"
-        >
-          Awesome Search
-        </Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Header title="Playground" />} />
-        <Route path="/grid" element={<RickMortysGrid />} />
-        <Route path="/grid/:id" element={<RickMortyGridDetail />} />
-        <Route path="/search" element={<RickMortysSearch />} />
-        <Route path="/todo" element={<Todo />} />
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <BrowserRouter>
+        <nav className="flex justify-center space-x-4">
+          <Link
+            class="text-blue-600 visited:text-purple-600 ..."
+            to="/grid"
+          >
+            Rick and Mortys Fantastic Grid
+          </Link>
+          <Link
+            class="text-blue-600 visited:text-purple-600 ..."
+            to="/search"
+          >
+            Awesome Search
+          </Link>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Header title="Playground" />} />
+          <Route path="/grid" element={<RickMortysGrid />} />
+          <Route path="/grid/:id" element={<RickMortyGridDetail />} />
+          <Route path="/search" element={<RickMortysSearch />} />
+          <Route path="/todo" element={<Todo />} />
+        </Routes>
+      </BrowserRouter>
+      <div className="flex flex-col justify-center max-h-screen items-center bg-gradient-to-b from-lime-200 to-lime-600">
+        <Signup />
+      </div>
+    </div>
   );
 }
 

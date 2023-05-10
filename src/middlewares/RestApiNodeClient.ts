@@ -1,4 +1,4 @@
-import TestRestApiNodeClientResponse from "../types/types";
+// import TestRestApiNodeClientResponse from "../types/types";
 
 const getHomeFetch = (): any => {
   return fetch("http://localhost:3001/home")

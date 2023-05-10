@@ -28,14 +28,14 @@ export interface Task {
   deadline: number;
 }
 
-declare module "testRestApiNodeClientResponse" {
+/* declare module "testRestApiNodeClientResponse" {
   interface TestRestApiNodeClientResponse {
     msg: string;
   }
   export = TestRestApiNodeClientResponse;
-}
+} */
 
-declare module "direction" {
+/* declare module "direction" {
   enum Direction {
     Up = "UP",
     Down = "DOWN",
@@ -43,4 +43,4 @@ declare module "direction" {
     Right = "RIGHT",
   }
   export default Direction;
-}
+} */
