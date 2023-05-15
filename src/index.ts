@@ -1,10 +1,12 @@
 import * as dotenv from "dotenv";
 import router from "./router/index.js";
 import { statusRetriever } from "./mgr/DBConnStatusMgr.js";
+import * as jwt from "jsonwebtoken";
 
 dotenv.config();
 
 import express, { Router } from "express";
+
 import http from "http";
 import bodyParser from "body-parser";
 import compression from "compression";
@@ -14,6 +16,7 @@ import users from "./router/users.js";
 import { parsePath } from "react-router-dom";
 
 const demo = {
+  privateKey: "eyJ1c2VybmFtZSI6InVzZXIwIiwiaWF0IjoxNTE2MjM5MDIyfQ",
   users: [
     {
       username: "user0",
@@ -34,15 +37,33 @@ const demo = {
   ],
 };
 
+// Creamos la app
 const app = express();
+
+/* app.use((req, res, next) => {
+  res.append("Access-Control-Allow-Origin", ["*"]);
+  res.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+  res.append("Access-Control-Allow-Headers", "Content-Type");
+  next();
+}); */
+
+// o
+app.use(cors());
+
+// Obtenemos un frontend estatico
 app.use(express.static("public"));
+
+// API
 const api = Router();
+
 api.use(express.json());
+
 api.use((req, res, next) => {
   if (!req.body)
     return res.status(400).send({ error: "Invalid request" });
   else return next();
 });
+
 api.post("/login", (req, res) => {
   if (!req.body.username || !req.body.password) {
     return res.status(400).send({ error: "Invalid request" });
@@ -57,8 +78,11 @@ api.post("/login", (req, res) => {
       .status(401)
       .send({ error: "Invalid username or password" });
   }
-  return res.send({ token: { username: user.username } });
+  return res.send({
+    token: jwt.sign({ username: user.username }, demo.privateKey),
+  });
 });
+
 api.post("/actions", (req, res) => {
   const sendInvalid = () => {
     res.status(401).send({ error: "Invalid token" });
@@ -66,7 +90,14 @@ api.post("/actions", (req, res) => {
   if (!req.body.token) {
     return sendInvalid();
   }
-  const username = req.body.token.username;
+
+  let token: any;
+  try {
+    token = jwt.verify(req.body.token, demo.privateKey);
+  } catch (error) {
+    return sendInvalid();
+  }
+  const username = token.username;
 
   const user = demo.users.find((u) => u.username === username);
   if (!user) {
@@ -75,6 +106,7 @@ api.post("/actions", (req, res) => {
 
   return res.send({ actions: user.actions });
 });
+
 app.use("/api", api);
 
 app.listen(process.env.PORT, () => {
