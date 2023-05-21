@@ -13,6 +13,7 @@ import RickMortyGridDetail from "./components/RickMortyGridDetail";
 import Todo from "./components/Todo";
 import Signup from "./components/Signup";
 import JWTSignUp from "./components/JWTSignUp";
+import { AuthProvider, RequireAuth } from "react-auth-kit";
 
 interface AppState {
   subs: Array<Sub>;
@@ -98,33 +99,57 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <nav className="flex justify-center space-x-4">
-          <Link
-            className="text-blue-600 visited:text-purple-600 ..."
-            to="/grid"
-          >
-            Rick and Mortys Fantastic Grid
-          </Link>
-          <Link
-            className="text-blue-600 visited:text-purple-600 ..."
-            to="/search"
-          >
-            Awesome Search
-          </Link>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Header title="Playground" />} />
-          <Route path="/grid" element={<RickMortysGrid />} />
-          <Route path="/grid/:id" element={<RickMortyGridDetail />} />
-          <Route path="/search" element={<RickMortysSearch />} />
-          <Route path="/todo" element={<Todo />} />
-        </Routes>
-      </BrowserRouter>
-      <div className="flex flex-col justify-center max-h-screen items-center bg-gradient-to-b from-lime-200 to-lime-600">
-        {/* <Signup /> */}
+      <AuthProvider
+        authType={"cookie"}
+        authName={"_auth"}
+        cookieDomain={window.location.hostname}
+        cookieSecure={false}
+      >
+        <BrowserRouter>
+          <nav className="flex justify-center space-x-4">
+            <Link
+              className="text-red-600 visited:text-purple-600 ..."
+              to="/login"
+            >
+              Login
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/grid"
+            >
+              Rick and Mortys Fantastic Grid
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/search"
+            >
+              Awesome Search
+            </Link>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Header title="Playground" />} />
+            <Route path="/login" element={<JWTSignUp />} />
+            <Route path="/grid" element={<RickMortysGrid />} />
+            <Route
+              path="/grid/:id"
+              element={<RickMortyGridDetail />}
+            />
+            <Route
+              path="/search"
+              element={
+                <RequireAuth loginPath="/login">
+                  <RickMortysSearch />
+                </RequireAuth>
+              }
+            />
+            <Route path="/todo" element={<Todo />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+      {/* <Signup /> */}
+      {/* <div className="flex flex-col justify-center max-h-screen items-center bg-gradient-to-b from-lime-200 to-lime-600">
         <JWTSignUp />
-      </div>
+      </div> */}
     </div>
   );
 }

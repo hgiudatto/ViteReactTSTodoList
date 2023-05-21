@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import { base, Horizontal, Vertical, Content } from "gls";
 import { cssRaw, style } from "typestyle";
 import env from "react-dotenv";
+import { useSignIn, RequireAuth, useSignOut } from "react-auth-kit";
+import { useNavigate } from "react-router-dom";
 
 base("#root");
 cssRaw("body {fontFamily: Arial}");
@@ -26,10 +28,14 @@ const JWTSignUp = (props: Props) => {
     setSuccess("");
     setError("");
   };
+  const signIn = useSignIn();
+  const signOut = useSignOut();
+  const navigate = useNavigate();
 
   const onLogin = async () => {
     cleanMessages();
     setActions([]);
+
     const res = await fetch(loginEndpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -40,8 +46,21 @@ const JWTSignUp = (props: Props) => {
       return setError(body.error);
     }
     const user = body.token.username;
+
+    signIn({
+      token: body.token,
+      expiresIn: 3600, // 1 hour
+      tokenType: "Bearer",
+      authState: { username: { username } },
+    });
+
     setSuccess(`Logged in ${user}`);
     setToken(body.token);
+  };
+
+  const logout = () => {
+    signOut();
+    navigate("/login");
   };
 
   const onLoadActions = async () => {
@@ -91,6 +110,10 @@ const JWTSignUp = (props: Props) => {
             />
           </Vertical>
           <button id="login">Login</button>
+          <br />
+          {/* <button id="logout" onClick={logout}>
+            Logout
+          </button> */}
         </Vertical>
       </form>
 

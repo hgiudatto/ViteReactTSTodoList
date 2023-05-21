@@ -78,9 +78,7 @@ api.post("/login", (req, res) => {
       .status(401)
       .send({ error: "Invalid username or password" });
   }
-  return res.send({
-    token: jwt.sign({ username: user.username }, demo.privateKey),
-  });
+  return res.send({ token: { username: user.username } });
 });
 
 api.post("/actions", (req, res) => {
@@ -91,13 +89,7 @@ api.post("/actions", (req, res) => {
     return sendInvalid();
   }
 
-  let token: any;
-  try {
-    token = jwt.verify(req.body.token, demo.privateKey);
-  } catch (error) {
-    return sendInvalid();
-  }
-  const username = token.username;
+  const username = req.body.token.username;
 
   const user = demo.users.find((u) => u.username === username);
   if (!user) {
