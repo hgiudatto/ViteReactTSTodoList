@@ -17,6 +17,7 @@ type Props = {};
 const JWTSignUp = (props: Props) => {
   const [token, setToken] = useState<any>(null);
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [actions, setActions] = useState<
     { name: string; image: string }[]
@@ -51,7 +52,7 @@ const JWTSignUp = (props: Props) => {
       token: body.token,
       expiresIn: 3600, // 1 hour
       tokenType: "Bearer",
-      authState: { username: { username } },
+      authState: { email: email },
     });
 
     setSuccess(`Logged in ${user}`);
@@ -60,7 +61,7 @@ const JWTSignUp = (props: Props) => {
 
   const logout = () => {
     signOut();
-    navigate("/login");
+    navigate("/");
   };
 
   const onLoadActions = async () => {
@@ -96,6 +97,15 @@ const JWTSignUp = (props: Props) => {
               onChange={(e) => {
                 cleanMessages();
                 setUsername(e.target.value);
+              }}
+            />
+            <label htmlFor="username">Email</label>
+            <input
+              id="email"
+              value={email}
+              onChange={(e) => {
+                cleanMessages();
+                setEmail(e.target.value);
               }}
             />
             <label htmlFor="password">Password</label>
