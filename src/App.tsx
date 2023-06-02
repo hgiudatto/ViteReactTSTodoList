@@ -14,6 +14,7 @@ import Todo from "./components/Todo";
 import Signup from "./components/Signup";
 import JWTSignUp from "./components/JWTSignUp";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
+import JWTSignOut from "./components/JWTSignOut";
 
 interface AppState {
   subs: Array<Sub>;
@@ -125,6 +126,12 @@ function App() {
             >
               Awesome Search
             </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/logout"
+            >
+              Logout
+            </Link>
           </nav>
           <Routes>
             <Route path="/" element={<Header title="Playground" />} />
@@ -143,6 +150,7 @@ function App() {
               }
             />
             <Route path="/todo" element={<Todo />} />
+            <Route path="/logout" element={<JWTSignOut />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
