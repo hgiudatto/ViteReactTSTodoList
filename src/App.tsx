@@ -15,6 +15,8 @@ import Signup from "./components/Signup";
 import JWTSignUp from "./components/JWTSignUp";
 import { AuthProvider, RequireAuth } from "react-auth-kit";
 import JWTSignOut from "./components/JWTSignOut";
+import Counter from "./components/Counter";
+import StoreUserContext from "./components/StoreUserContext";
 
 interface AppState {
   subs: Array<Sub>;
@@ -128,6 +130,18 @@ function App() {
             </Link>
             <Link
               className="text-blue-600 visited:text-purple-600 ..."
+              to="/counter"
+            >
+              Counter
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/storeUser"
+            >
+              Store User
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
               to="/logout"
             >
               Logout
@@ -151,6 +165,8 @@ function App() {
             />
             <Route path="/todo" element={<Todo />} />
             <Route path="/logout" element={<JWTSignOut />} />
+            <Route path="/counter" element={<Counter />} />
+            <Route path="/storeUser" element={<StoreUserContext />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
