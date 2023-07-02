@@ -18,7 +18,7 @@ import JWTSignOut from "./components/JWTSignOut";
 import Counter from "./components/Counter";
 import StoreUserContext from "./components/StoreUserContext";
 import Page from "./components/Page";
-import ImageContext from "./components/ImageContext";
+import ImageMgr from "./components/ImageMgr";
 
 interface AppState {
   subs: Array<Sub>;
@@ -187,7 +187,7 @@ function App() {
             <Route path="/logout" element={<JWTSignOut />} />
             <Route path="/counter" element={<Counter />} />
             <Route path="/storeUser" element={<StoreUserContext />} />
-            <Route path="/imgCtx" element={<ImageContext />} />
+            <Route path="/imgCtx" element={<ImageMgr />} />
             <Route path="/page" element={<Page />} />
           </Routes>
         </BrowserRouter>
