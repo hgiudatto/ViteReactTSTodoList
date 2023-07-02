@@ -1,4 +1,11 @@
 import * as dotenv from "dotenv";
+import {
+  ApiResponse,
+  Character,
+  getCharacters,
+  Info,
+} from "rickmortyapi";
+import responseTime from "response-time";
 import router from "./router/index.js";
 import { statusRetriever } from "./mgr/DBConnStatusMgr.js";
 import * as jwt from "jsonwebtoken";
@@ -14,6 +21,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import users from "./router/users.js";
 import { parsePath } from "react-router-dom";
+import fetch from "node-fetch";
 
 const demo = {
   privateKey: "eyJ1c2VybmFtZSI6InVzZXIwIiwiaWF0IjoxNTE2MjM5MDIyfQ",
@@ -98,6 +106,29 @@ api.post("/actions", (req, res) => {
 
   return res.send({ actions: user.actions });
 });
+
+api.get("/characters", async (req, res): Promise<void> => {
+  let rickMorty: any;
+  const response = await getCharacters();
+  response.data.results?.map((rm) => {
+    console.log(`character name: ${rm.name}, origin: ${rm.origin}`);
+    rickMorty = { name: `${rm.name}`, origin: `${rm.origin}` };
+  });
+  res.json(rickMorty);
+  return new Promise<void>((resolve, reject) => {
+    resolve();
+  });
+});
+
+app.use(responseTime());
+
+api.get(
+  "/rickMortyChars",
+  async (req, res): Promise<ApiResponse<Info<Character[]>>> => {
+    const rmChars = await getCharacters();
+    return rmChars;
+  }
+);
 
 app.use("/api", api);
 

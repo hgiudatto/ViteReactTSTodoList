@@ -18,6 +18,7 @@ import JWTSignOut from "./components/JWTSignOut";
 import Counter from "./components/Counter";
 import StoreUserContext from "./components/StoreUserContext";
 import Page from "./components/Page";
+import ImageContext from "./components/ImageContext";
 
 interface AppState {
   subs: Array<Sub>;
@@ -118,6 +119,12 @@ function App() {
               Login
             </Link>
             <Link
+              className="text-red-600 visited:text-purple-600 ..."
+              to="/todo"
+            >
+              TODO
+            </Link>
+            <Link
               className="text-blue-600 visited:text-purple-600 ..."
               to="/grid"
             >
@@ -149,6 +156,12 @@ function App() {
             </Link>
             <Link
               className="text-blue-600 visited:text-purple-600 ..."
+              to="/imgCtx"
+            >
+              Image Context
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
               to="/logout"
             >
               Logout
@@ -174,6 +187,7 @@ function App() {
             <Route path="/logout" element={<JWTSignOut />} />
             <Route path="/counter" element={<Counter />} />
             <Route path="/storeUser" element={<StoreUserContext />} />
+            <Route path="/imgCtx" element={<ImageContext />} />
             <Route path="/page" element={<Page />} />
           </Routes>
         </BrowserRouter>

@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 type Props = {};
 
 const RickMortysGrid = (props: Props) => {
-  const [showPage, setShowPage] = useState(0);
+  const [showPage, setShowPage] = useState(1);
   const [value, setValue] = useState(0);
   const [rickAndMortys, setRickAndMortys] = useState<ApiResponse<
     Info<Character[]>
@@ -35,6 +35,7 @@ const RickMortysGrid = (props: Props) => {
   };
 
   const incrementPage = () => {
+    console.log(`page: ${showPage}`);
     setShowPage((showPage) => showPage + 1);
   };
 
