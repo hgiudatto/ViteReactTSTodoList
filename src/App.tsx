@@ -19,6 +19,12 @@ import Counter from "./components/Counter";
 import StoreUserContext from "./components/StoreUserContext";
 import Page from "./components/Page";
 import ImageMgr from "./components/ImageMgr";
+import InputField from "./components/InputField";
+import { resolve } from "path";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { title } from "process";
+import RickMortyWrapper from "./components/withReactQuery/RickMortyWrapper";
+import RickMortys from "./components/withReactQuery/RickMortys";
 
 interface AppState {
   subs: Array<Sub>;
@@ -57,6 +63,7 @@ function App() {
 
   const [success, setSuccess] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [todo, setTodo] = useState<string[]>([""]);
   const cleanMessages = () => {
     setSuccess("");
     setError("");
@@ -102,8 +109,36 @@ function App() {
     setSubs((subs) => [...subs, newSub]);
   };
 
+  console.log(todo);
+
+  const wait = (duration) => {
+    return new Promise((resolve) => setTimeout(resolve, duration));
+  };
+
+  const POSTS = [
+    { id: 1, title: "Post 1" },
+    { id: 2, title: "Post 2" },
+  ];
+  console.log(POSTS);
+
+  const queryClient = useQueryClient();
+  const postsQuery = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => wait(1000).then(() => [...POSTS]),
+  });
+
+  if (postsQuery.isLoading) return <h1>Loading...</h1>;
+  if (postsQuery.isError) {
+    return <pre>{JSON.stringify(postsQuery.error)}</pre>;
+  }
+
   return (
     <div className="App">
+      <div>
+        {postsQuery.data.map((post) => (
+          <div key={post.id}>{post.title}</div>
+        ))}
+      </div>
       <AuthProvider
         authType={"cookie"}
         authName={"_auth"}
@@ -162,6 +197,18 @@ function App() {
             </Link>
             <Link
               className="text-blue-600 visited:text-purple-600 ..."
+              to="/inputField"
+            >
+              Taskify
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/rickMortysQuery"
+            >
+              Rick And Mortys
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
               to="/logout"
             >
               Logout
@@ -189,6 +236,11 @@ function App() {
             <Route path="/storeUser" element={<StoreUserContext />} />
             <Route path="/imgCtx" element={<ImageMgr />} />
             <Route path="/page" element={<Page />} />
+            <Route
+              path="/inputField"
+              element={<InputField todo={todo} setTodo={setTodo} />}
+            />
+            <Route path="/rickMortysQuery" element={<RickMortys />} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
