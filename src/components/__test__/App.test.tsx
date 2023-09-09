@@ -8,3 +8,16 @@ test("Renders main page correctly", async () => {
   expect(buttonCount.innerHTML).toBe("count is 0");
   expect(true).toBeTruthy();
 });
+
+describe("App", () => {
+  it("should render hello world", () => {
+    //Arrange
+    render(<App />);
+    const heading = "Hello world";
+    // Act
+    // Expect
+    expect(
+      screen.getByRole("heading", { level: 1 })
+    ).toHaveTextContent(heading);
+  });
+});
