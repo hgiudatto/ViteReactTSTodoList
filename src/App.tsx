@@ -27,6 +27,8 @@ import RickMortyWrapper from "./components/withReactQuery/RickMortyWrapper";
 import RickMortys from "./components/withReactQuery/RickMortys";
 import getUsers from "./helpers/RetrieveUsers";
 import User from "./components/User";
+import CounterCallback from "./components/counterCallback";
+import UserDetailCallback from "./components/UserDetailCallback";
 
 interface AppState {
   subs: Array<Sub>;
@@ -234,6 +236,18 @@ function App() {
             </Link>
             <Link
               className="text-blue-600 visited:text-purple-600 ..."
+              to="/counterCallback"
+            >
+              Counter Callback
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
+              to="/userDetailCallback"
+            >
+              User Detail Callback
+            </Link>
+            <Link
+              className="text-blue-600 visited:text-purple-600 ..."
               to="/logout"
             >
               Logout
@@ -266,6 +280,14 @@ function App() {
               element={<InputField todo={todo} setTodo={setTodo} />}
             />
             <Route path="/rickMortysQuery" element={<RickMortys />} />
+            <Route
+              path="/counterCallback"
+              element={<CounterCallback />}
+            />
+            <Route
+              path="/userDetailCallback"
+              element={<UserDetailCallback userId={2} />}
+            />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
