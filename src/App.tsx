@@ -25,6 +25,8 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { title } from "process";
 import RickMortyWrapper from "./components/withReactQuery/RickMortyWrapper";
 import RickMortys from "./components/withReactQuery/RickMortys";
+import getUsers from "./helpers/RetrieveUsers";
+import User from "./components/User";
 
 interface AppState {
   subs: Array<Sub>;
@@ -64,9 +66,20 @@ function App() {
   const [success, setSuccess] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [todo, setTodo] = useState<string[]>([""]);
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const cleanMessages = () => {
     setSuccess("");
     setError("");
+  };
+
+  const handleChange = ({ target: { value } }) => {
+    setSearchTerm(value);
+  };
+
+  const fillUsers = async () => {
+    const users = await getUsers();
+    setUsers(users);
   };
 
   const onLogin = async () => {
@@ -103,6 +116,7 @@ function App() {
 
   useEffect(() => {
     setSubs(INITIAL_STATE);
+    fillUsers();
   }, []);
 
   const handleNewSub = (newSub: Sub): void => {
@@ -138,6 +152,17 @@ function App() {
         {postsQuery.data.map((post) => (
           <div key={post.id}>{post.title}</div>
         ))}
+      </div>
+      <div>
+        <h1>Users</h1>
+        <input
+          className="inputField"
+          type="text"
+          placeholder="Search users"
+          value={searchTerm}
+          onChange={(e) => handleChange(e)}
+        />
+        <User users={users} searchTerm={searchTerm} />
       </div>
       <AuthProvider
         authType={"cookie"}
